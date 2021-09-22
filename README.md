@@ -22,7 +22,7 @@ AutoParking offers the ideal solution for managing your business:
 - Increase control, reliability and security for the owner, customers and employees.
 
 ## 5.	Proyect roles:
-Tripulante    | Rol
+Crew member    | Rol
 -------|---------------
 Álvaro Javier Hernández Rueda | Product Owner
 Wilson Peña | Scrum Master
