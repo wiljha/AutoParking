@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#flask env
+.flaskenv
+
+config_old.py
+*.ini
