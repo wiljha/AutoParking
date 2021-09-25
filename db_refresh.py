@@ -1,6 +1,7 @@
 from app import database
 
 #importa los modelos
+from models.rol import Rol
 from models.documento import Documento
 from models.tarifa import Tarifa
 from models.usuario import Usuario
