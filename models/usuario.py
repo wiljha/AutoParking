@@ -21,8 +21,12 @@ class Usuario(database.Model):
         self.id_d = id_d
         self.documento = documento
         self.usuario = usuario
-        self.password = bcrypt.generate_password_hash(password)
+        self.password = bcrypt.generate_password_hash(password).decode('utf-8')
         self.id_r = 2
+        
+    def create(self):
+        database.session.add(self)
+        database.session.commit()
     
     def __str__(self):
         return f"Usuario: {self.id_us} {self.id_d} {self.documento} {self.nombre} {self.apellido} {self.telefono} {self.correo} {self.usuario} {self.password} {self.id_r}"
@@ -30,3 +34,14 @@ class Usuario(database.Model):
     @staticmethod
     def get_all():
         return Usuario.query.all()
+    
+    @staticmethod
+    def login(username, password):
+        validate = False
+        
+        user = Usuario.query.filter_by(usuario = username).first()
+        print(user)
+        if user:
+            validate = bcrypt.check_password_hash(user.password, password)
+        
+        return validate

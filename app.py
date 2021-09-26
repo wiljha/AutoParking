@@ -43,11 +43,18 @@ def hello():
 @app.route("/register")
 def register():
     t_doc = 1
-    documento = 987654
-    usuario = 'usuario1'
+    documento = 123456
+    usuario = 'usuario2'
     password = '123456'
     
     user = Usuario(t_doc, documento, usuario, password)
+    user.create()
     
-    return str(bcrypt.check_password_hash(user.password, password))
+    return "listo"
     
+@app.route("/login")
+def login():
+    usuario = 'usuario2'
+    password = '123456'
+    
+    return str(Usuario.login(usuario, password))

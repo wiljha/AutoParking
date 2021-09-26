@@ -7,6 +7,10 @@ class Tarifa(database.Model):
     id_tv = database.Column(database.Integer, database.ForeignKey('tipo_vehiculo.id_tv'))
     valor = database.Column(database.Integer, nullable=False)
     
+    def create(self):
+        database.session.add(self)
+        database.session.commit()
+
     def __str__(self):
         return f"<Tarifa: {self.id_t} {self.id_tv} {self.valor}>"
     

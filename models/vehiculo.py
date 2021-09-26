@@ -9,6 +9,10 @@ class Vehiculo(database.Model):
     id_tv = database.Column(database.Integer, database.ForeignKey('tipo_vehiculo.id_tv'))
     v_factura = database.relationship('Factura', backref='vehiculos', lazy=True)
     
+    def create(self):
+        database.session.add(self)
+        database.session.commit()
+
     def __str__(self):
         return f"<Vehiculo: {self.id_v} {self.placa} {self.id_tv}>"
     
