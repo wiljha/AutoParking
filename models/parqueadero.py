@@ -7,6 +7,10 @@ class Parqueadero(database.Model):
     capacidad = database.Column(database.Integer, nullable=False)
     id_tv = database.Column(database.Integer, database.ForeignKey('tipo_vehiculo.id_tv'))
     
+    def create(self):
+        database.session.add(self)
+        database.session.commit()
+
     def __str__(self):
         return f"<Parqueadero: {self.id_p} {self.capacidad} {self.id_tv}>"
     

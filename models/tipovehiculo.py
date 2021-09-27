@@ -9,8 +9,11 @@ class TipoVehiculo(database.Model):
     tv_tarifa = database.relationship('Tarifa', backref='tipo_vehiculo', lazy=True)
     tv_parqueadero = database.relationship('Parqueadero', backref='tipo_vehiculo', lazy=True)
     tv_vehiculo = database.relationship('Vehiculo', backref='tipo_vehiculo', lazy=True)
-    tv_factura = database.relationship('Factura', backref='tipo_vehiculo', lazy=True)
     
+    def create(self):
+        database.session.add(self)
+        database.session.commit()
+
     def __str__(self):
         return f"<Tipo Vehiculo: {self.id_tv} {self.nombre}>"
     

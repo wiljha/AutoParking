@@ -21,7 +21,7 @@ AutoParking offers the ideal solution for managing your business:
 - Create parking use history and tracking business money flow.
 - Increase control, reliability and security for owner, customers and employees.
 
-## 5.	Project Rols:
+## 5.	Proyect roles:
 Crew member    | Rol
 -------|---------------
 Álvaro Javier Hernández Rueda | Product Owner

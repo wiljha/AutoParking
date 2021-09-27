@@ -11,6 +11,10 @@ class Factura(database.Model):
     fechasalida = database.Column(database.String, nullable=False)
     id_us = database.Column(database.Integer, database.ForeignKey('usuarios.id_us'))
     
+    def create(self):
+        database.session.add(self)
+        database.session.commit()
+
     def __str__(self):
         return f"Factura: {self.id_f} {self.tiempo} {self.precio} {self.id_v} {self.fechaentrada} {self.fechasalida} {self.id_us}"
     

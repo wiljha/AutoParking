@@ -8,6 +8,10 @@ class Documento(database.Model):
     nombre = database.Column(database.String, nullable=False)
     usuarios = database.relationship('Usuario', backref='documentos', lazy=True)
     
+    def create(self):
+        database.session.add(self)
+        database.session.commit()
+
     def __str__(self):
         return f"<Documento: {self.id_d} {self.nombre}>"
     
