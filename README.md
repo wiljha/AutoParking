@@ -1,27 +1,27 @@
 <h1 align="center">AutoParking</h1>
 
 ## 1. Problem Statement:
-AutoParking, a parking lot, performs its vehicle registration and check-out operations manually, this leads to delays, both at entry and exit, which is why long lines of cars are formed.
+AutoParking parking lot manually manages vehicle registration and check-out. This situation causes delays for its customers and log vehicles lines.
 
-In addition, there is no control of the spaces available for parking the vehicles.
+In addition, there is no control for parking vehicles available spaces.
 
 ## 2.	Justification:
-Considering the negative aspects mentioned above, is required a system to allow control registration and check-out of vehicles can also be consulted to know the availability of space.
-The software that will be developed will facilitate registration and avoid delays in parking processes, resulting in improved customer service and greater control by the owner of the parking lot, allowing them to make business decisions based on the information collected. 
+Considering negative aspects mentioned above, is required a system to allow control registration and check-out of vehicles, it can also be consulted to know space availability.
+The software that will be developed will facilitate registration and avoid parking delays. It will be resulting in customer service improvement and better control by the owner of the parking lot, allowing him to make business decisions based on the information collected. 
 
 ## 3.	General objective:
-It is necessary to systematize the registration of the users of the AutoParking parking lot, in order to automate the control processes that give value to the business and its customers.
+It is necessary to systematize AutoParking user’s registration inside the parking lot, in order to automate control processes, giving value to the business and its customers.
 
 ## 4.	Specific objectives:
 AutoParking offers the ideal solution for managing your business:
-- Manage in real time and precisely the occupation and use of parking spaces.
+-Manage real time occupation and use of parking spaces with precision.
 - Automate vehicle registration and check-out.
 - Reduce check-in and check-out management time.
-- Control and verify the use of space.
-- Create a history of the use and inflow of money of the business.
-- Increase control, reliability and security for the owner, customers and employees.
+- Control and verifying use of space.
+- Create parking use history and tracking business money flow.
+- Increase control, reliability and security for owner, customers and employees.
 
-## 5.	Roles del proyecto:
+## 5.	Project Rols:
 Crew member    | Rol
 -------|---------------
 Álvaro Javier Hernández Rueda | Product Owner
