@@ -132,4 +132,4 @@ dmypy.json
 .flaskenv
 
 config_old.py
-*.ini
+db*.ini
