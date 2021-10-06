@@ -17,9 +17,13 @@ class Usuario(database.Model):
     id_r = database.Column(database.Integer, database.ForeignKey('roles.id_r'))
     u_factura = database.relationship('Factura', backref='usuarios', lazy=True)
     
-    def __init__(self, id_d, documento, usuario, password):
+    def __init__(self, id_d, documento, nombre, apellido, telefono, correo, usuario, password):
         self.id_d = id_d
         self.documento = documento
+        self.nombre = nombre
+        self.apellido = apellido
+        self.telefono = telefono
+        self.correo = correo
         self.usuario = usuario
         self.password = bcrypt.generate_password_hash(password).decode('utf-8')
         self.id_r = 2

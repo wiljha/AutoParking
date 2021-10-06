@@ -2,6 +2,8 @@ from dotenv import load_dotenv
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+from flask import render_template, request, redirect
+from config_lang import ConfigLang
 
 
 app = Flask(__name__)
@@ -27,34 +29,40 @@ from models.parqueadero import Parqueadero
 from models.tipovehiculo import TipoVehiculo
 from models.vehiculo import Vehiculo
 from models.factura import Factura
-#from models.prueba import Prueba
+
+langIni = 'lang_ESP.ini'
 
 @app.route("/")
 def hello():
-    doc_user = ''
-    usuarios = Usuario.get_all()
-    for user in usuarios:
-        doc_user += user.documento + ' '
-        print(user)
-    
-    return doc_user
+    lang = ConfigLang(langIni, 'LOGIN')
+    return render_template('index.html', lang=lang)
 
 
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register():
-    t_doc = 1
-    documento = 123456
-    usuario = 'usuario2'
-    password = '123456'
+    if(request.method == "POST"):
+        t_doc = request.form["rol"]
+        documento = request.form["documento"]
+        nombre = request.form["nombre"]
+        apellido = request.form["apellido"]
+        telefono = request.form["tel"]
+        correo = request.form["emal"]
+        usuario = request.form["user"]
+        password = request.form["pass"]
+        
+        user = Usuario(t_doc, documento, nombre, apellido, telefono, correo, usuario, password)
+        user.create()
     
-    user = Usuario(t_doc, documento, usuario, password)
-    user.create()
-    
-    return "listo"
-    
+    return render_template('usuarios.html')
+
 @app.route("/login")
 def login():
     usuario = 'usuario2'
     password = '123456'
     
     return str(Usuario.login(usuario, password))
+
+@app.route("/users")
+def users():
+    
+    return render_template('pruebas.html')
