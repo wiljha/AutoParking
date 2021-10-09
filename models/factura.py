@@ -1,4 +1,6 @@
 from app import database
+from datetime import date, time, datetime
+
 
 class Factura(database.Model):
     __tablename__ = 'facturas'
@@ -21,3 +23,8 @@ class Factura(database.Model):
     @staticmethod
     def get_all():
         return Factura.query.all()
+
+    @staticmethod
+    def time():
+        d = datetime.now()
+        return d.strftime('%H:%M:%S')
