@@ -1,21 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
-</head>
-<body>
-    <header>
-       
-    </header>
-    <div class='container'>
+{% extends "main.html" %}
+{% block title %}Espacios{% endblock %}
+
+{% block nav %}{{super()}}{% endblock %}
+{% block item_3 %} active fw-bold text-danger{% endblock %}
+{% block content %}
+<div class='container'>
       <p></p>
-      <h1 class="text-center">Tarifas</h1>
+      <h1 class="text-center">Espacios</h1>
       <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#userModal">
         Modifica Tarifas
       </button>
@@ -60,7 +51,6 @@
               <input type="text" class="form-control" id="auto" value="{{auto}}" placeholder="Apellido" name="auto">
               <label for="auto">Tarifa Auto</label>
             </div>
-           
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -72,8 +62,4 @@
       </div>
       </form>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>   
-</body>
-
-</html>
+{% endblock %}

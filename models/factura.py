@@ -11,7 +11,6 @@ class Factura(database.Model):
     id_v = database.Column(database.Integer, database.ForeignKey('vehiculos.id_v'))
     fechaentrada = database.Column(database.String, nullable=False)
     fechasalida = database.Column(database.String, nullable=False)
-
     id_us = database.Column(database.Integer, database.ForeignKey('usuarios.id'))
 
     def __init__(self, tiempo, precio, id_v, fechaentrada, fechasalida, id_us):
@@ -22,8 +21,6 @@ class Factura(database.Model):
         self.fechasalida = fechasalida
         self.id_us = id_us
 
-
-    
     def create(self):
         database.session.add(self)
         database.session.commit()
@@ -45,7 +42,5 @@ class Factura(database.Model):
         for ti in factura:
             fla = dt.hour -ti.fechaentrada.hour
             time_t.append(fla)
-            
-                      
-            
+
         return time_t
