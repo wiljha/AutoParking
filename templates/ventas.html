@@ -13,28 +13,29 @@
   </head>
   <body>
     <header>
-        <nav class="navbar navbar-expand-md navbar-light sticky-top" style="background-color: #e3f2fd;">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">
-                    <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="logo" width="30" height="30">
-              </a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                  <a class="nav-link" href="#">Ventas</a>
-                  <a class="nav-link" href="#">Usuarios</a>
-                  <a class="nav-link" href="#">Espacios</a>
-                  <a class="nav-link" href="#">Tarifas</a>
-                  <a class="nav-link btn btn-warning btn-sm" role="button" aria-disabled="true">Salir</a>
-                </div>
+      <nav class="navbar navbar-expand-md navbar-light sticky-top" style="background-color: #e3f2fd;">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+              <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="logo" width="30" height="30">
+            </a>
+            {% if current_user.is_authenticated %}
+              {{ current_user.nombre }}
+            {% endif %}              
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <a class="nav-link {% block item_1 %}{% endblock %}" href="{{url_for('ventas')}}">Ventas</a>
+                <a class="nav-link {% block item_2 %}{% endblock %}" href="{{url_for('users')}}">Usuarios</a>
+                <a class="nav-link {% block item_3 %}{% endblock %}" href="{{url_for('users')}}">Espacios</a>
+                <a class="nav-link {% block item_4 %}{% endblock %}" href="{{url_for('tarifas')}}">Tarifas</a>
+                <a class="nav-link btn btn-warning btn-sm" role="button" aria-disabled="true" href="{{url_for('logout')}}">Salir</a>
               </div>
             </div>
-          </nav>
-    </header>
-    <div>
-    </div>
+          </div>
+        </nav>
+  </header>
     
     
 
