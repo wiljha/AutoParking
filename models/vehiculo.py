@@ -8,6 +8,10 @@ class Vehiculo(database.Model):
     placa = database.Column(database.String, nullable=False)
     id_tv = database.Column(database.Integer, database.ForeignKey('tipo_vehiculo.id_tv'))
     v_factura = database.relationship('Factura', backref='vehiculos', lazy=True)
+
+    def __init__(self, placa, id_tv):
+        self.placa = placa
+        self.id_tv = id_tv 
     
     def create(self):
         database.session.add(self)
@@ -19,3 +23,14 @@ class Vehiculo(database.Model):
     @staticmethod
     def get_all():
         return Vehiculo.query.all()
+
+    @staticmethod
+    def get_id(placa):
+        
+        return Vehiculo.query.filter_by(placa = placa).first()    
+
+    @staticmethod
+    def if_exist(placa):
+        validate = 0
+        vehiculo = Vehiculo.get_id(placa)
+        return vehiculo
