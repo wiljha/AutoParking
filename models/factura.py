@@ -12,7 +12,7 @@ class Factura(database.Model):
     fechaentrada = database.Column(database.String, nullable=False)
     fechasalida = database.Column(database.String, nullable=False)
 
-    id_us = database.Column(database.Integer, database.ForeignKey('usuarios.id_us'))
+    id_us = database.Column(database.Integer, database.ForeignKey('usuarios.id'))
 
     def __init__(self, tiempo, precio, id_v, fechaentrada, fechasalida, id_us):
         self.tiempo = tiempo
