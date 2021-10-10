@@ -19,7 +19,7 @@
         <nav class="navbar navbar-expand-md navbar-light sticky-top" style="background-color: #e3f2fd;">
             <div class="container-fluid">
               <a class="navbar-brand" href="#">
-                <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="logo" width="30" height="30">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" width="30" height="30">
               </a>
               {% if current_user.is_authenticated %}
                 {{ current_user.nombre }}
@@ -31,7 +31,7 @@
                 <div class="navbar-nav">
                   <a class="nav-link {% block item_1 %}{% endblock %}" href="{{url_for('ventas')}}">Ventas</a>
                   <a class="nav-link {% block item_2 %}{% endblock %}" href="{{url_for('users')}}">Usuarios</a>
-                  <a class="nav-link {% block item_3 %}{% endblock %}" href="{{url_for('users')}}">Espacios</a>
+                  <a class="nav-link {% block item_3 %}{% endblock %}" href="{{url_for('espacios')}}">Espacios</a>
                   <a class="nav-link {% block item_4 %}{% endblock %}" href="{{url_for('tarifas')}}">Tarifas</a>
                   <a class="nav-link btn btn-warning btn-sm" role="button" aria-disabled="true" href="{{url_for('logout')}}">Salir</a>
                 </div>

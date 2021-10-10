@@ -1,44 +1,9 @@
+{% extends "main.html" %}
+{% block title %}Ventas{% endblock %}
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-
-    <title>Registro</title>
-
-    
-  </head>
-  <body>
-    <header>
-      <nav class="navbar navbar-expand-md navbar-light sticky-top" style="background-color: #e3f2fd;">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-              <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="logo" width="30" height="30">
-            </a>
-            {% if current_user.is_authenticated %}
-              {{ current_user.nombre }}
-            {% endif %}              
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-              <div class="navbar-nav">
-                <a class="nav-link {% block item_1 %}{% endblock %}" href="{{url_for('ventas')}}">Ventas</a>
-                <a class="nav-link {% block item_2 %}{% endblock %}" href="{{url_for('users')}}">Usuarios</a>
-                <a class="nav-link {% block item_3 %}{% endblock %}" href="{{url_for('users')}}">Espacios</a>
-                <a class="nav-link {% block item_4 %}{% endblock %}" href="{{url_for('tarifas')}}">Tarifas</a>
-                <a class="nav-link btn btn-warning btn-sm" role="button" aria-disabled="true" href="{{url_for('logout')}}">Salir</a>
-              </div>
-            </div>
-          </div>
-        </nav>
-  </header>
-    
-    
-
+{% block nav %}{{super()}}{% endblock %}
+{% block item_1 %} active fw-bold text-danger{% endblock %}
+{% block content %}
     <!-- Container 1 -->
     <div class="container-fluid">
       
@@ -62,13 +27,8 @@
             <option value="3">Auto</option>
           </select>
         </div>
-
-           
-      
-        
-      
         <div class="col-12">
-          <button type="submit" class="bñkntn btn-primary">Registrar</button>
+          <button type="submit" class="btn btn-primary">Registrar</button>
         </div>
       </form>
       <h1 class="text-left mt-5" >Registro de Salida </h1>
@@ -84,24 +44,13 @@
       
       
         <div class="col-12">
-          <button type="submit" class="bñkntn btn-primary" data-bs-toggle="modal" data-bs-target="#userModal">Generar factura</button>
+          <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userModal">Generar factura</button>
         </div>
       </form>
-
-      
-
+    </div>
     </div>
 
-      
-     
-      
-     
-
-
-      
-      <!-- Container 2 -->
-    </div>
-
+    <!-- Container 2 -->
     <div class='container'>
 
       <h1 class="text-center mt-5">Ventas</h1>
@@ -116,28 +65,17 @@
                   <th scope="col">Placa</th>
                   <th scope="col">Tipo de vehículo</th>
                   <th scope="col">Hora de entrada</th>
-                  
-                  
-      
                 </tr>
               </thead>
               <tbody>
-                
                 {% for fact, vehi, teVehi in results %}
-                
                 <tr>
-                  
                   <td>{{fact.id_f}}</td>
                   <td>{{vehi.placa}}</td>
                   <td>{{teVehi.nombre}}</td>
                   <td>{{fact.fechaentrada}}</td>
-                  
-                  
                 </tr>
-                
                 {% endfor %}
-                
-                
               </tbody>
             </table>
           </div>
@@ -145,28 +83,17 @@
             <table class="table">
               <thead>
                 <tr>
-                 
-                  
                   <th scope="col">Tiempo (horas)</th>
                   <th scope="col">Valor a Pagar (pesos)</th>
-      
                 </tr>
               </thead>
               <tbody>
-                
                 {% for ti in tiempo %}
-                
                 <tr>
-                  
-                  
                   <td>{{ti}}</td>
                   <td>$ {{ti*3000}}</td>
-                  
                 </tr>
-                
                 {% endfor %}
-                
-                
               </tbody>
             </table>
           </div>
@@ -193,12 +120,6 @@
       </table>
       -->
 
-      
-
-     
-
-    
- 
 <!-- Modal 1-->
 <div class="modal fade" id="userModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -211,7 +132,6 @@
         <table class="table">
           <thead>
             <tr>
-              
               <th scope="col">Placa</th>
               <th scope="col">Hora de entrada</th>
               <th scope="col">Hora de salida</th>              
@@ -221,9 +141,7 @@
             </tr>
           </thead>
           <tbody>
-            
             <tr>
-              
               <td>JET723</td>
               <td>06:00:01</td>
               <td>13:00:21</td>             
@@ -231,7 +149,6 @@
               <td>74</td>
               <td>20000</td>
             </tr>
-            
           </tbody>
         </table>
       </div>
@@ -243,8 +160,4 @@
   </div>
 </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-
-  </body>
-</html>
-
+{% endblock %}

@@ -66,13 +66,12 @@ def index():
     return render_template('index.html', lang=lang)
 
 @app.route("/users", methods=["GET", "POST"])
-#@login_required
+@login_required
 def users():
-    #if current_user.id_r == 1:
-    if True:
+    if current_user.id_r == 1:
         alerta = ["", '']
         tipo_doc = Documento.get_all()
-        usuarios = Usuario.get_full()
+        #usuarios = Usuario.get_full()
         edit = 0
         
         if(request.method == "POST"):
@@ -104,29 +103,33 @@ def users():
                     alerta[1] = "El documento ya está asociado a ese tipo de usuario."
             
         lang = ConfigLang(langIni, 'LOGIN')
+        usuarios = Usuario.get_full()
         return render_template('usuarios.html', alerta=alerta, tipo_doc=tipo_doc, usuarios=usuarios, lang=lang, edit=0)
         
     else:
         return redirect(url_for('ventas'))
 
 @app.route("/ajaxfile",methods=["POST","GET"])
+@login_required
 def ajaxfile():
-    tipo_doc = Documento.get_all()
-    if request.method == "GET":
-        edit = request.args.get('userid')
-        if edit == None:
-            return jsonify({'htmlresponse': render_template('usuarios_response.html', tipo_doc=tipo_doc, edit=0)})
-        else:
-            user = Usuario.get_user(edit)
-            return jsonify({'htmlresponse': render_template('usuarios_response.html', tipo_doc=tipo_doc, edit=int(edit), who=user)})
+    if current_user.id_r == 1:
+        tipo_doc = Documento.get_all()
+        if request.method == "GET":
+            edit = request.args.get('userid')
+            if edit == None:
+                return jsonify({'htmlresponse': render_template('usuarios_response.html', tipo_doc=tipo_doc, edit=0)})
+            else:
+                user = Usuario.get_user(edit)
+                return jsonify({'htmlresponse': render_template('usuarios_response.html', tipo_doc=tipo_doc, edit=int(edit), who=user)})
     
 @app.route("/logout", methods=["GET", "POST"])
-#@login_required
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
 @app.route("/ventas", methods = ['GET','POST'])
+@login_required
 def ventas():
     factura = Factura.get_all()
     time = Factura.time()
@@ -134,25 +137,22 @@ def ventas():
             select_from(Factura).join(Vehiculo).join(TipoVehiculo).all()
     #print(results)
     if request.method == 'POST':
-        plac = request.form['placa']
+        plac = request.form['placa'].upper()
         tvehic= request.form['Tvehiculo']
         fechaentrada = datetime.now()
         vehiculo = Vehiculo.if_exist(plac)
         
-        if vehiculo:
-            pass
-        else:
+        if vehiculo == None:
             tempVehiculo = Vehiculo(plac,tvehic)
             tempVehiculo.create()
             vehiculo = tempVehiculo.get_id(plac)
-            
-        
-        
 
         idvec = vehiculo.id_v
         fac = Factura(0,0,idvec,fechaentrada,'00:00:00',2)
         fac.create()
         #print(plac)
+        results = database.session.query(Factura, Vehiculo, TipoVehiculo). \
+            select_from(Factura).join(Vehiculo).join(TipoVehiculo).all()
         return render_template('ventas.html',  results=results, tiempo=time)
     else:
         factura = Factura.get_all()
@@ -187,23 +187,41 @@ def ventas():
         return render_template('ventas.html',  results=results, tiempo=time,dt=dt)
 
 @app.route("/tarifas", methods=["GET","POST"])
+@login_required
 def tarifas():
-    tarifa=Tarifa.get_full()
-    bici=Tarifa.trae_tarifa(1)  
-    moto=Tarifa.trae_tarifa(2) 
-    auto=Tarifa.trae_tarifa(3)  
-    if request.method == 'POST':
-        valor1=request.form["bici"]
-        valor2=request.form["moto"]
-        valor3=request.form["auto"]
-        tar=Tarifa(1,valor1)
-        print(tar)
-        tar.actualiza_tarifa(1,tar)
-        tar=Tarifa(2,valor2)
-        tar.actualiza_tarifa(2,tar)
-        tar=Tarifa(3,valor3)
-        tar.actualiza_tarifa(3,tar)
-    return render_template('tarifas.html',tarifa=tarifa,bici=bici.valor,moto=moto.valor,auto=auto.valor)
+    if current_user.id_r == 1:
+        tarifa=Tarifa.get_full()
+        bici=Tarifa.trae_tarifa(1)  
+        moto=Tarifa.trae_tarifa(2) 
+        auto=Tarifa.trae_tarifa(3)  
+        
+        if request.method == 'POST':
+            valor1=request.form["bici"]
+            valor2=request.form["moto"]
+            valor3=request.form["auto"]
+            
+            tar=Tarifa(1,valor1)
+            tar.actualiza_tarifa(1,tar)
+            
+            tar=Tarifa(2,valor2)
+            tar.actualiza_tarifa(2,tar)
+            
+            tar=Tarifa(3,valor3)
+            tar.actualiza_tarifa(3,tar)
+        
+        return render_template('tarifas.html',tarifa=tarifa,bici=bici.valor,moto=moto.valor,auto=auto.valor)
+    else:
+        return redirect(url_for('ventas'))
+        
+
+@app.route("/espacios", methods=["GET", "POST"])
+@login_required
+def espacios():
+    if current_user.id_r == 1:
+        lang = ConfigLang(langIni, 'LOGIN')
+        return render_template('espacios.html', lang=lang)
+    else:
+        return redirect(url_for('ventas'))
 
 if __name__ == '__main__':
     app.run(debug=False)

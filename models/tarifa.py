@@ -29,12 +29,12 @@ class Tarifa(database.Model):
     
     @staticmethod
     def trae_tarifa(id):
-        return  Tarifa.query.filter_by(id_tv=id).first()
+        return Tarifa.query.filter_by(id_tv=id).first()
         
     @staticmethod
     def actualiza_tarifa(id,tarifa):
-        pre_tarifa=Tarifa.trae_tarifa(id)
-        pre_tarifa.valor=tarifa.valor
+        pre_tarifa = Tarifa.trae_tarifa(id)
+        pre_tarifa.valor = tarifa.valor
         database.session.commit()
         
     
