@@ -1,4 +1,5 @@
 from app import database
+from app import TipoVehiculo
 
 class Tarifa(database.Model):
     __tablename__ = 'tarifas'
@@ -17,3 +18,7 @@ class Tarifa(database.Model):
     @staticmethod
     def get_all():
         return Tarifa.query.all()
+    
+    @staticmethod
+    def get_full():
+        return database.session.query(Tarifa, TipoVehiculo).join(TipoVehiculo).all()

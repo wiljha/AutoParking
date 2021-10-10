@@ -10,26 +10,21 @@
 {% block nav %}{% endblock %}
 {% block content %}
 <main class="form-signin text-center">
-  <form>
+  <form action="" method="POST">
     <img class="mb-4" src="{{ url_for('static', filename='img/logo.svg') }}" alt="logo" width="100" height="100">
     <h1 class="h3 mb-3 fw-normal">{{ lang.lg_msg }}</h1>
 
     <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="{{ lang.lg_user }}">
-      <label for="floatingInput">{{ lang.lg_user }}</label>
+      <input type="text" class="form-control" id="user" placeholder="{{ lang.lg_user }}" name="user">
+      <label for="user">{{ lang.lg_user }}</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="{{ lang.lg_pass }}">
-      <label for="floatingPassword">{{ lang.lg_pass }}</label>
+      <input type="password" class="form-control" id="pass" placeholder="{{ lang.lg_pass }}" name="pass">
+      <label for="pass">{{ lang.lg_pass }}</label>
     </div>
 
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> {{ lang.lg_rmb }}
-      </label>
-    </div>
     <button class="w-100 btn btn-lg btn-primary" type="submit">{{ lang.lg_sub }}</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+    <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
   </form>
 </main>
 {% endblock %}
