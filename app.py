@@ -35,6 +35,8 @@ bcrypt = Bcrypt(app)
 login_manager.init_app(app)
 login_manager.login_view = "index"
 
+server_session = Session(app)
+
 from models.rol import Rol
 from models.documento import Documento
 from models.tipovehiculo import TipoVehiculo
