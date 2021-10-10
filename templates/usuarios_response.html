@@ -1,0 +1,60 @@
+<input type="hidden" value="{{edit}}" name="edit">
+Tipo de usuario
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="rol" id="rol1" value="1" {% if edit > 0 %}{% if who.id_r == 1 %}checked{% endif %}{% endif %}>
+  <label class="form-check-label" for="rol1">
+    Administrador de sistema
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="rol" id="rol2" value="2" {% if edit > 0 %}{% if who.id_r == 2 %}checked{% endif %}{% else %}checked{% endif %}>
+  <label class="form-check-label" for="rol2">
+    Cajero
+  </label>
+</div>
+<p></p>
+  Tipo de documento
+  {% for tipo in tipo_doc %}
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="t_doc" id="t_doc{{tipo.id_d}}" value="{{tipo.id_d}}">
+    <label class="form-check-label" for="t_doc{{tipo.id_d}}">
+      {{tipo.nombre}}
+    </label>
+  </div>
+  {% endfor %}
+<p></p>
+  <div class="form-floating mb-3">
+  <input type="text" class="form-control" id="documento" placeholder="Número de documento" name="documento" {% if edit > 0 %}value="{{who.documento}}"{% endif %}>
+  <label for="documento">Número de documento</label>
+</div>
+<div class="form-floating mb-3">
+  <input type="text" class="form-control" id="nombre" placeholder="Nombre" name="nombre" {% if edit > 0 %}value="{{who.nombre}}"{% endif %}>
+  <label for="nombre">Nombre</label>
+</div>
+<div class="form-floating mb-3">
+  <input type="text" class="form-control" id="apellido" placeholder="Apellido" name="apellido" {% if edit > 0 %}value="{{who.apellido}}"{% endif %}>
+  <label for="apellido">Apellido</label>
+</div>
+<div class="form-floating mb-3">
+  <input type="ext" class="form-control" id="tel" placeholder="Teléfono" name="tel" {% if edit > 0 %}value="{{who.telefono}}"{% endif %}>
+  <label for="tel">Teléfono</label>
+</div>
+<div class="form-floating mb-3">
+  <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email" {% if edit > 0 %}value="{{who.correo}}"{% endif %}>
+  <label for="email">Email address</label>
+</div>
+<div class="form-floating mb-3">
+  <input type="text" class="form-control" id="user" placeholder="Usuario" name="user" {% if edit > 0 %}value="{{who.usuario}}"{% endif %}>
+  <label for="user">Usuario</label>
+</div>
+<div class="form-floating mb-3">
+  <input type="password" class="form-control " id="pass" placeholder="Clave" name="pass">
+  <label for="pass">Clave</label>
+</div>
+<div class="form-floating mb-3">
+  <input type="password" class="form-control " id="pass2" placeholder="Confirmar clave" name="pass2" onkeyup="verifyPassword()" onfocus="verifyPassword()">
+  <label for="pass2">Confirmar clave</label>
+  <div class="invalid-feedback">
+    Las claves no coinciden.
+  </div>
+</div>
