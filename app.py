@@ -66,7 +66,65 @@ def index():
 @app.route("/ventas", methods=["GET", "POST"])
 def ventas():
     lang = ConfigLang(langIni, 'LOGIN')
-    return render_template('ventas.html', lang=lang)
+    factura = Factura.get_all()
+    time = Factura.time()
+    results = database.session.query(Factura, Vehiculo, TipoVehiculo). \
+            select_from(Factura).join(Vehiculo).join(TipoVehiculo).all()
+    #print(results)
+    if request.method == 'POST':
+        plac = request.form['placa']
+        tvehic= request.form['Tvehiculo']
+        fechaentrada = datetime.now()
+        vehiculo = Vehiculo.if_exist(plac)
+        
+        
+        if vehiculo:
+            pass
+        else:
+            tempVehiculo = Vehiculo(plac,tvehic)
+            tempVehiculo.create()
+            vehiculo = tempVehiculo.get_id(plac)
+            
+        
+        
+
+        idvec = vehiculo.id_v
+        fac = Factura(0,0,idvec,fechaentrada,'00:00:00',2)
+        fac.create()
+        #print(plac)
+        return render_template('ventas.html',  results=results, tiempo=time)
+    else:
+        factura = Factura.get_all()
+        time = Factura.time()
+        
+    
+
+    if request.method == 'GET':
+        reqfac = request.args.get('out_id')
+        fil = database.session.query(Vehiculo.placa,TipoVehiculo.nombre, Factura.fechaentrada).join(Factura).join(TipoVehiculo). \
+            filter(Factura.id_f==reqfac).all()
+        print(fil)
+        print(type(fil))
+        dt = datetime.now()
+        ff =[]
+        for tes in fil:
+            ff+=tes
+    
+        dt = datetime.now().time()
+        
+        return render_template('ventas.html',  results=results, tiempo=time, ff=ff, dt=dt)
+    else:
+        pass   
+
+        Tvehiculo = TipoVehiculo.get_all()
+
+        time_now =Factura.time()
+        
+        
+        dt = datetime.now()
+       
+
+        return render_template('ventas.html',  results=results, tiempo=time,dt=dt,lang=lang)
 
 
 @app.route("/tarifas", methods=["GET","POST"])
