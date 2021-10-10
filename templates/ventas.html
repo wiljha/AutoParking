@@ -42,29 +42,26 @@
       
       <h1 class="text-left mt-5" >Registro de entrada </h1>
       
-      <form class="row row-cols-lg-auto g-3 align-items-center">
+      <form action="/ventas" method="POST" class="row row-cols-lg-auto g-3 align-items-center">
         <div class="col-12">
           <label class="visually-hidden" for="inlineFormInputGroupUsername">Placa</label>
           <div class="input-group">
             <div class="input-group-text">Placa vehículo</div>
-            <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="ABC123">
+            <input type="text" class="form-control" id="inlineFormInputGroupUsername" name="placa" placeholder="ABC123">
           </div>
         </div>
       
         <div class="col-12">
           <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
-          <select class="form-select" id="inlineFormSelectPref">
+          <select class="form-select" name="Tvehiculo" id="inlineFormSelectPref">
             <option selected>Tipo de vehículo...</option>
             <option value="1">Bicicleta</option>
             <option value="2">Moto</option>
             <option value="3">Auto</option>
           </select>
         </div>
-        <form action="/action_page.php">
-          <label for="appt">Hora de entrada:</label>
-          <input type="time" id="appt" name="appt">
-          <!-- <input type="submit"> -->
-        </form>
+
+           
       
         
       
@@ -72,6 +69,33 @@
           <button type="submit" class="bñkntn btn-primary">Registrar</button>
         </div>
       </form>
+      <h1 class="text-left mt-5" >Registro de Salida </h1>
+
+      <form action="/ventas" method="GET" class="row row-cols-lg-auto g-3 align-items-center">
+        <div class="col-12">
+          <label class="visually-hidden" for="inlineFormInputGroupUsername">Placa</label>
+          <div class="input-group">
+            <div class="input-group-text">ID</div>
+            <input type="text" class="form-control" id="inlineFormInputGroupUsername" name="out_id" placeholder="100">
+          </div>
+        </div>
+      
+      
+        <div class="col-12">
+          <button type="submit" class="bñkntn btn-primary" data-bs-toggle="modal" data-bs-target="#userModal">Generar factura</button>
+        </div>
+      </form>
+
+      
+
+    </div>
+
+      
+     
+      
+     
+
+
       
       <!-- Container 2 -->
     </div>
@@ -79,6 +103,72 @@
     <div class='container'>
 
       <h1 class="text-center mt-5">Ventas</h1>
+      
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Placa</th>
+                  <th scope="col">Tipo de vehículo</th>
+                  <th scope="col">Hora de entrada</th>
+                  
+                  
+      
+                </tr>
+              </thead>
+              <tbody>
+                
+                {% for fact, vehi, teVehi in results %}
+                
+                <tr>
+                  
+                  <td>{{fact.id_f}}</td>
+                  <td>{{vehi.placa}}</td>
+                  <td>{{teVehi.nombre}}</td>
+                  <td>{{fact.fechaentrada}}</td>
+                  
+                  
+                </tr>
+                
+                {% endfor %}
+                
+                
+              </tbody>
+            </table>
+          </div>
+          <div class="col">
+            <table class="table">
+              <thead>
+                <tr>
+                 
+                  
+                  <th scope="col">Tiempo (horas)</th>
+                  <th scope="col">Valor a Pagar (pesos)</th>
+      
+                </tr>
+              </thead>
+              <tbody>
+                
+                {% for ti in tiempo %}
+                
+                <tr>
+                  
+                  
+                  <td>{{ti}}</td>
+                  <td>$ {{ti*3000}}</td>
+                  
+                </tr>
+                
+                {% endfor %}
+                
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
       
       <!--
       <table class="table">
@@ -101,45 +191,11 @@
       </table>
       -->
 
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Placa</th>
-            <th scope="col">Tipo de vehículo</th>
-            <th scope="col">Hora de entrada</th>
-            
-            <th scope="col">Tiempo</th>
-            <th scope="col">Valor a Pagar</th>
-
-          </tr>
-        </thead>
-        <tbody>
-          
-          {% for fact, vehi, teVehi in results %}
-          <tr>
-            
-            
-            <td>{{vehi.placa}}</td>
-            <td>{{teVehi.nombre}}</td>
-            <td>{{fact.fechaentrada}}</td>
-            
-            <td>{{fact.tiempo}}</td>
-            <td>{{fact.precio}}</td>
-          </tr>
-          {% endfor %}
-          
-        </tbody>
-      </table>
-
-      <p></p>
       
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userModal">
-        Generar factura
-      </button>
-     
-    </div>
 
-    <!-- Modal -->
+     
+
+    
  
 <!-- Modal 1-->
 <div class="modal fade" id="userModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -163,6 +219,7 @@
             </tr>
           </thead>
           <tbody>
+            
             <tr>
               
               <td>JET723</td>

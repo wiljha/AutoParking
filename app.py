@@ -9,13 +9,6 @@ from datetime import date, time, datetime
 
 app = Flask(__name__)
 
-headings = ("Placa", "Tipo de vehículo", "Hora de entrada", "Tiempo", "Valor a pagar")
-data= (
-        ("JET723", "Auto", "6:00:01", "4.5","20000" ),
-        ("ATZ836", "Moto", "10:00:01", "0.5","5000" ),
-        ("QA124E25", "Bici", "10:00:01", "0.5","1000" )
-
-    )
 
 #'postgresql://username:password@host:port/database'
 
@@ -74,33 +67,98 @@ def login():
     return str(Usuario.login(usuario, password))
 
    
-@app.route("/ventas")
+@app.route("/ventas", methods = ['GET','POST'])
 def ventas():
     factura = Factura.get_all()
-    Tvehiculo = TipoVehiculo.get_all()
-
+    time = Factura.time()
     results = database.session.query(Factura, Vehiculo, TipoVehiculo). \
-        select_from(Factura).join(Vehiculo).join(TipoVehiculo).all()
-    #for fact, vehi, teVehi in results:
-        #print(fact.tiempo, vehi.placa, teVehi.nombre)
-    print(type(results))
-    
-    time_now =Factura.time()
-    time_dtime= datetime.strptime(time_now, '%H:%M:%S')
+            select_from(Factura).join(Vehiculo).join(TipoVehiculo).all()
+    #print(results)
+    if request.method == 'POST':
+        plac = request.form['placa']
+        tvehic= request.form['Tvehiculo']
+        fechaentrada = datetime.now()
+        vehiculo = Vehiculo.if_exist(plac)
+        
+        if vehiculo:
+            pass
+        else:
+            tempVehiculo = Vehiculo(plac,tvehic)
+            tempVehiculo.create()
+            vehiculo = tempVehiculo.get_id(plac)
+            
+        
+        
 
-    print(type(time_dtime))
+        idvec = vehiculo.id_v
+        fac = Factura(0,0,idvec,fechaentrada,'00:00:00',2)
+        fac.create()
+        #print(plac)
+        return render_template('ventas.html',  results=results, tiempo=time)
+    else:
+        factura = Factura.get_all()
+        time = Factura.time()
+        
     
 
-    for ti in factura:
-        res= ti.fechaentrada
-        print(res)
-        print(type(res))
-   
-    
-    #precios = 0
-    #for fact in factura:
-        #precios += fact.precio
-        #precios = fact.precio
-    #print(precios)
+    if request.method == 'GET':
+        reqfac = request.args.get('out_id')
+        fil = database.session.query(Vehiculo.placa,TipoVehiculo.nombre, Factura.fechaentrada).join(Factura).join(TipoVehiculo). \
+            filter(Factura.id_f==reqfac).all()
+        print(fil)
+        print(type(fil))
+        dt = datetime.now()
+        ff =[]
+        for tes in fil:
+            ff+=tes
+            
+        #print(ff)
+        dt = datetime.now().time()
+        #hsal= datetime.strptime(fil[2], '%H:%M:%S').time() 
+        #tim= dt.hour - hsal.hour
+        return render_template('ventas.html',  results=results, tiempo=time, ff=ff, dt=dt)
+    else:
+        pass   
 
-    return render_template('ventas.html',  results=results)
+
+
+
+        
+
+        
+        Tvehiculo = TipoVehiculo.get_all()
+
+        
+
+
+        
+        #for fact, vehi, teVehi in results:
+            #print(fact.tiempo, vehi.placa, teVehi.nombre)
+        
+        
+        time_now =Factura.time()
+        
+        #time_dtime= datetime.strptime(time_now, '%H:%M:%S')
+        #dt = time_dtime.time()
+        dt = datetime.now()
+        
+
+    
+
+        
+        
+        
+
+        #for ti in factura:
+        #    res= ti.fechaentrada
+        #    print(dt.hour- res.hour)
+            
+    
+        
+        #precios = 0
+        #for fact in factura:
+            #precios += fact.precio
+            #precios = fact.precio
+        #print(precios)
+
+        return render_template('ventas.html',  results=results, tiempo=time,dt=dt)

@@ -12,6 +12,15 @@ class Factura(database.Model):
     fechaentrada = database.Column(database.String, nullable=False)
     fechasalida = database.Column(database.String, nullable=False)
     id_us = database.Column(database.Integer, database.ForeignKey('usuarios.id_us'))
+
+    def __init__(self, tiempo, precio, id_v, fechaentrada, fechasalida, id_us):
+        self.tiempo = tiempo
+        self.precio = precio
+        self.id_v = id_v
+        self.fechaentrada = fechaentrada
+        self.fechasalida = fechasalida
+        self.id_us = id_us
+
     
     def create(self):
         database.session.add(self)
@@ -25,6 +34,16 @@ class Factura(database.Model):
         return Factura.query.all()
 
     @staticmethod
-    def time():
-        d = datetime.now()
-        return d.strftime('%H:%M:%S')
+    def time():    
+        factura = Factura.get_all()
+        
+        time_t = []
+        dt = datetime.now()
+        fla = 0
+        for ti in factura:
+            fla = dt.hour -ti.fechaentrada.hour
+            time_t.append(fla)
+            
+                      
+            
+        return time_t
